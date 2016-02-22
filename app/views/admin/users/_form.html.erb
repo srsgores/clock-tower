@@ -23,6 +23,11 @@
   <small><%= form.label :hourly, "Hourly (Contractor)" %></small>
 <% end %>
 
+<%= form.label :has_tax, class: "form-control mid-control" do %>
+  <%= form.check_box :has_tax %>
+  <small><%= form.label :has_tax, "Apply Tax?" %></small>
+<% end %>
+
 <%= form.label :is_admin, class: "form-control mid-control" do %>
   <%= form.check_box :is_admin %>
   <small><%= form.label :is_admin, "Administrator" %></small>
