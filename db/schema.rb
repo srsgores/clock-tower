@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160222191418) do
+ActiveRecord::Schema.define(version: 20160222201839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,9 @@ ActiveRecord::Schema.define(version: 20160222191418) do
     t.integer  "holiday_rate_multiplier"
     t.boolean  "legacy"
     t.string   "holiday_code"
+    t.boolean  "has_tax"
+    t.string   "tax_desc"
+    t.integer  "tax_percent"
   end
 
   add_index "time_entries", ["entry_date"], name: "index_time_entries_on_entry_date", using: :btree
@@ -84,6 +87,7 @@ ActiveRecord::Schema.define(version: 20160222191418) do
     t.string   "password_reset_token"
     t.string   "tax_number"
     t.integer  "location_id"
+    t.boolean  "has_tax"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
