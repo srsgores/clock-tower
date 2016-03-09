@@ -4,7 +4,7 @@ ruby '2.2.1'
 
 gem 'pg'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.1'
+gem 'rails', '4.2.5.1'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
 # Use SCSS for stylesheets
@@ -14,7 +14,7 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer',  platforms: :ruby
+gem 'therubyracer',  platforms: :ruby, group: :test
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -50,20 +50,24 @@ gem 'chosen-rails', '~> 1.1.0'
 # Bootstrap for Chosen Javascript
 gem 'chosen-sass-bootstrap-rails', '~> 0.0.2'
 
-gem 'holidays'
+gem 'holidays', '~> 3.2.0'
 
-gem 'airbrake'
+gem 'sentry-raven'
+
 # ruby app server
 # https://devcenter.heroku.com/articles/deploying-rails-applications-with-the-puma-web-server
 gem 'puma'
 gem 'silencer'
 gem 'newrelic_rpm'
 
-group :production do 
+gem "interactor-rails", "~> 2.0"
+
+
+group :production do
   gem 'rails_12factor'
 end
 
-group :development do 
+group :development do
   gem 'letter_opener'
   gem 'letter_opener_web'
   gem 'web-console', '~> 2.0'
@@ -72,11 +76,15 @@ end
 group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  gem 'rspec-rails', '~> 2.14.1'
+  gem 'rspec-rails', '~> 3.4.0'
+  gem 'rspec-collection_matchers'
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'pry'
   gem 'pry-byebug'
   gem 'dotenv-rails'
   gem 'quiet_assets'
+  gem 'simplecov'
 end
+
+gem 'codeclimate-test-reporter', group: :test, require: nil

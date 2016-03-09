@@ -18,11 +18,11 @@ class PasswordResetsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: params[:email])
+    user = User.by_email(params[:email]).first
     if user
       user.update(password_reset_token: SecureRandom.hex(10))
 
-      UserMailer.password_reset(user).deliver
+      UserMailer.password_reset(user).deliver_now
       redirect_to :root, notice: "Password Reset sent to #{user.email}"
     else
       flash.now[:alert] = "Account with email #{params[:email]} not found"

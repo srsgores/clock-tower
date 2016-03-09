@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20160222211533) do
+=======
+ActiveRecord::Schema.define(version: 20160229234019) do
+>>>>>>> master
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,7 +23,7 @@ ActiveRecord::Schema.define(version: 20160222211533) do
   create_table "locations", force: :cascade do |t|
     t.string  "name"
     t.string  "province"
-    t.integer "tax_percent"
+    t.decimal "tax_percent", precision: 5, scale: 3
     t.string  "tax_name"
     t.string  "user_id"
   end
@@ -56,12 +60,16 @@ ActiveRecord::Schema.define(version: 20160222211533) do
     t.integer  "rate"
     t.boolean  "apply_rate"
     t.boolean  "is_holiday"
-    t.integer  "holiday_rate_multiplier"
+    t.decimal  "holiday_rate_multiplier", precision: 4, scale: 2
     t.boolean  "legacy"
     t.string   "holiday_code"
     t.boolean  "has_tax"
     t.string   "tax_desc"
+<<<<<<< HEAD
     t.integer  "tax_percent"
+=======
+    t.decimal  "tax_percent",             precision: 5, scale: 3
+>>>>>>> master
     t.integer  "location_id"
   end
 
@@ -79,10 +87,10 @@ ActiveRecord::Schema.define(version: 20160222211533) do
     t.string   "password_digest"
     t.boolean  "is_admin"
     t.boolean  "active"
-    t.boolean  "hourly",                  default: true
+    t.boolean  "hourly",                                          default: true
     t.float    "rate"
     t.float    "secondary_rate"
-    t.float    "holiday_rate_multiplier", default: 1.5
+    t.decimal  "holiday_rate_multiplier", precision: 4, scale: 2, default: 1.5
     t.boolean  "password_reset_required"
     t.string   "company_name"
     t.string   "password_reset_token"

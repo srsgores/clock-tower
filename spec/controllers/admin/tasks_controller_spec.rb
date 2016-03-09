@@ -1,31 +1,33 @@
 require 'spec_helper'
 
-describe TasksController do
+describe Admin::TasksController do
 
-  logged_in_user
+  logged_in_user_admin
 
   describe "GET #index" do
     it "assigns the list of tasks to @tasks" do
-      task = create(:task)
+      task = build(:task)
+      expect(Task).to receive(:all).and_return([task])
       get :index
-      assigns(:tasks).should eq [task]
+      expect(assigns(:tasks)).to eq [task]
     end
 
     it "renders the :index template" do
       get :index
-      response.should render_template :index
+      expect(response.status).to eq(200)
+      expect(response).to render_template :index
     end
   end
 
   describe "GET #new" do
     it "assigns a new Task to @task" do
       get :new
-      assigns(:task).should be_a_new(Task)
+      expect(assigns(:task)).to be_a_new(Task)
     end
 
     it "renders the :new template" do
       get :new
-      response.should render_template :new
+      expect(response).to render_template :new
     end
   end
 
@@ -36,12 +38,12 @@ describe TasksController do
 
     it "assigns the requested Task to @task" do
       get :edit, id: @task
-      assigns(:task).should eq @task
+      expect(assigns(:task)).to eq @task
     end
 
     it "renders the :edit template" do
       get :edit, id: @task
-      response.should render_template :edit
+      expect(response).to render_template :edit
     end
   end
 
@@ -55,7 +57,7 @@ describe TasksController do
 
       it "redirects to :index page" do
         post :create, task: attributes_for(:task)
-        response.should redirect_to tasks_url
+        expect(response).to redirect_to(admin_tasks_url)
       end
     end
 
@@ -68,7 +70,7 @@ describe TasksController do
 
       it "re-render the :new page" do
         post :create, task: attributes_for(:task_without_name)
-        response.should render_template :new
+        expect(response).to render_template :new
       end
     end
   end
@@ -81,7 +83,7 @@ describe TasksController do
 
     it "locates the requested task" do
       put :update, id: @task, task: attributes_for(:task)
-      assigns(:task).should eq @task
+      expect(assigns(:task)).to eq @task
     end
 
     context "valid attributes" do
@@ -90,12 +92,12 @@ describe TasksController do
         put :update, id: @task, task: attributes_for(:project,
           name: new_name)
         @task.reload
-        @task.name.should eq new_name
+        expect(@task.name).to eq new_name
       end
 
       it "redirects to :index page" do
         put :update, id: @task, task: attributes_for(:task)
-        response.should redirect_to tasks_url
+        expect(response).to redirect_to(admin_tasks_url)
       end
     end
 
@@ -104,13 +106,13 @@ describe TasksController do
         put :update, id: @task, task: attributes_for(:project,
           name: nil)
         @task.reload
-        @task.name.should eq @task_name
+        expect(@task.name).to eq @task_name
       end
 
       it "re-render the :edit page" do
         put :update, id: @task, task: attributes_for(:project,
           name: nil)
-        response.should render_template :edit
+        expect(response).to render_template :edit
       end
     end
   end
@@ -128,7 +130,7 @@ describe TasksController do
 
     it "redirects to :index page" do
       delete :destroy, id: @task
-      response.should redirect_to tasks_url
+      expect(response).to redirect_to(admin_tasks_url)
     end
   end
 end
