@@ -35,3 +35,6 @@ The following specifies the features available for each user roles.
 * look at all tasks created
 * query/filter all tasks
 * provide summary of tasks
+
+
+Original fork from: https://github.com/asoesilo/clock-tower
