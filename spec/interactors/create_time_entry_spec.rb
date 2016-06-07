@@ -204,6 +204,15 @@ describe CreateTimeEntry do
       end
     end
 
+    context "rate from Rate" do
+      it "if Rate exists for Project/Task, use that rate" do
+        allow(@user).to receive(:hourly?).and_return (true)
+        create :rate, user_id: @user.id, project_id: @project.id, task_id: @task.id, rate: 100
+        entry = CreateTimeEntry.call(@params).time_entry
+        expect(entry.rate).to eq(100)
+      end
+    end
+
     context "not a holiday" do
       before :each do
         allow(@user).to receive(:rate).and_return(10)
