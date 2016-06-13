@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :projects
   has_many :time_entries
   has_many :statements
+  has_many :rates
 
   belongs_to :location
 
