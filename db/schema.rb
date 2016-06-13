@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160606143109) do
+ActiveRecord::Schema.define(version: 20160613022930) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 20160606143109) do
     t.string   "tax_desc"
     t.decimal  "tax_percent",                         precision: 5, scale: 3
     t.integer  "location_id"
+    t.integer  "source_rate_id"
   end
 
   add_index "time_entries", ["entry_date"], name: "index_time_entries_on_entry_date", using: :btree

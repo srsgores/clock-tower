@@ -13,6 +13,7 @@ describe CreateTimeEntry do
     @user = create :user
     @project = create :project
     @task = create :task
+    @rate = create :rate
     @duration = 1
     @entry_date = Date.today
     set_params
@@ -178,6 +179,23 @@ describe CreateTimeEntry do
       end
 
     end
+  end
+
+  describe "source_rate" do
+    it "should not set source_rate if there is no matching rate" do
+      set_params
+      @time_entry = CreateTimeEntry.call(@params).time_entry
+      expect(@time_entry.source_rate).to eq(nil)
+    end
+
+    it "should set source_rate if there is a matching rate" do
+      r = create :rate, project: @project, task: @task, user: @user, rate: 55
+      set_params
+      @time_entry = CreateTimeEntry.call(@params).time_entry
+      expect(@time_entry.source_rate).to eq(r)
+      expect(@time_entry.rate).to eq(r.rate)
+    end
+
   end
 
   context "with no location" do

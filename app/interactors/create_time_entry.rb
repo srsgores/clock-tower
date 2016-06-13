@@ -77,6 +77,7 @@ class CreateTimeEntry
       duration_in_hours: @duration_in_hours,
       comments: context[:comments],
       rate: rate,
+      source_rate: @rate,
       apply_rate: @user.hourly?,
       is_holiday: is_holiday?,
       holiday_rate_multiplier: @user.holiday_rate_multiplier,

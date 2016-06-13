@@ -5,6 +5,7 @@ class TimeEntry < ActiveRecord::Base
   has_many :statement_time_entries
   has_many :statements, through: :statement_time_entries
   belongs_to :location
+  belongs_to :source_rate, class_name: :Rate
 
   validates :user, presence: true
   validates :project, presence: true
