@@ -3,10 +3,10 @@ describe Admin::Reports::PayrollController do
 
   describe "GET show" do
     before :each do
-      @chrispy = create(:user, hourly: true, firstname: "Chris", lastname: "Brooks")
-      @gg = create(:user, hourly: true, firstname: "Graham", lastname: "Grochowski")
-      @tsang = create(:user, hourly: true, firstname: "Andrew", lastname: "Tsang")
-      @don = create(:user, hourly: false, firstname: "Don", lastname: "Burks")
+      @chrispy = create(:user, :is_hourly, firstname: "Chris", lastname: "Brooks")
+      @gg = create(:user, :is_hourly, firstname: "Graham", lastname: "Grochowski")
+      @tsang = create(:user, :is_hourly, firstname: "Andrew", lastname: "Tsang")
+      @don = create(:user, :is_hourly, firstname: "Don", lastname: "Burks")
     end
 
     context "@from" do

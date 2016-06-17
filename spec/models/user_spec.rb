@@ -1,5 +1,5 @@
 describe User do
-  before :each do 
+  before :each do
     @user = build(:user)
   end
 
@@ -32,6 +32,13 @@ describe User do
       user = create(:user, email: "test@example.com")
       expect(build(:user, email: "test@example.com")).to have(1).errors_on(:email)
       user.destroy
+    end
+
+    it "is invalid with hourly but no rate" do
+      expect(build(:user, rate: nil, hourly: true)).to have(1).errors_on(:rate)
+    end
+    it "is invalid with hourly but 0 rate" do
+      expect(build(:user, rate: 0, hourly: true)).to have(1).errors_on(:rate)
     end
   end
 

@@ -9,8 +9,9 @@ class User < ActiveRecord::Base
   validates :firstname, presence: true
   validates :lastname, presence: true
   validates :email, presence: true, uniqueness: { case_sensitive: false }, email: true
-
   validates :password_reset_token, uniqueness: true, if: :password_reset_token
+
+  validate :rate_for_hourly
 
   scope :hourly, -> { where(hourly: true) }
   scope :by_email, -> (email){ where('lower(email) = ?', email.downcase) }
@@ -40,6 +41,10 @@ class User < ActiveRecord::Base
 
   def send_email_invite
     UserMailer.user_invite(self, creator).deliver_now
+  end
+
+  def rate_for_hourly
+    errors.add(:rate, 'Rate is required for hourly users') if hourly and (!rate or rate <= 0)
   end
 
 end

@@ -22,6 +22,11 @@ FactoryGirl.define do
       is_admin true
     end
 
+    trait :is_hourly do
+      hourly true
+      rate { Faker::Number.between(20, 45) }
+    end
+
     trait :invalid_email do
       email { Faker::Name.name}
     end
