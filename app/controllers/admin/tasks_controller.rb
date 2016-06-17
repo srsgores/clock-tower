@@ -17,6 +17,7 @@ class Admin::TasksController < Admin::BaseController
     if @task.save
       redirect_to admin_tasks_path
     else
+      @path = admin_tasks_path
       render :new
     end
   end
@@ -35,13 +36,14 @@ class Admin::TasksController < Admin::BaseController
     if @task.save
       redirect_to admin_tasks_path
     else
+      @path = admin_task_path
       render :edit
     end
   end
 
   def destroy
     @task = Task.find(params[:id])
-    
+
     @task.destroy
     redirect_to admin_tasks_path, notice: "Task '#{@task.name}' deleted successfully"
   end

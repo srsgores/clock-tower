@@ -17,6 +17,7 @@ class Admin::ProjectsController < Admin::BaseController
     if @project.save
       redirect_to admin_projects_path
     else
+      @path = admin_projects_path
       render :new
     end
   end
@@ -32,13 +33,14 @@ class Admin::ProjectsController < Admin::BaseController
     if @project.update_attributes(project_params)
       redirect_to admin_projects_path
     else
+      @path = admin_project_path
       render :edit
     end
   end
 
   def destroy
     @project = Project.find(params[:id])
-    
+
     @project.destroy
     redirect_to admin_projects_path, notice: "Project '#{@project.name}' deleted successfully"
   end
