@@ -1,11 +1,11 @@
 class ApplicationController < ActionController::Base
-  
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
   before_action :authenticate_user
-  before_action :check_for_password_update 
+  before_action :check_for_password_update
   before_action :set_raven_context
 
   private
@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= User.find_by(active: true, id: session[:user_id]) if session[:user_id]
   end
-  
+
   def to_home_if_logged_in
     redirect_to :root, alert: "You are already logged in" if current_user
   end
@@ -46,8 +46,18 @@ class ApplicationController < ActionController::Base
     Date.today
   end
 
+  def is_impersonating?
+    session[:original_user_id] != nil
+  end
+
+  def current_impersonator
+    User.find_by(id: session[:original_user_id])
+  end
+
   helper_method :current_user
   helper_method :is_logged_in?
   helper_method :default_report_start_date
   helper_method :default_report_end_date
+  helper_method :is_impersonating?
+  helper_method :current_impersonator
 end
