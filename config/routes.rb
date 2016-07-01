@@ -44,6 +44,7 @@ Rails.application.routes.draw do
       get 'payroll' => 'payroll#show'
       get 'summary' => 'summary#show'
     end
+    get 'sessions/impersonate/:id' => 'sessions#impersonate'
   end
 
 end

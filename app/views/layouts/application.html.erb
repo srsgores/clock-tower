@@ -59,6 +59,11 @@
                   </ul>
                 </li>
               <% end %>
+              <% if is_impersonating? %>
+              <li>
+                <a href="#" >You are currently impersonating</a>
+              </li>
+              <% end %>
               <li>
                 <%= link_to "Statements", statements_path %>
               </li>

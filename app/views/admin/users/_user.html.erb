@@ -28,8 +28,13 @@
     <% end %>
   </td>
   <td>
-    <%= link_to [:edit, :admin, user] do %>
-      E
+    <div class="btn-group btn-group-xs" role="group">
+    <%= link_to [:edit, :admin, user], {class: "btn btn-default" } do %>
+      Edit
     <% end %>
+    <%= link_to "/admin/sessions/impersonate/#{user.id}", {class: "btn btn-default" } do %>
+      Impersonate
+    <% end %>
+    </div>
   </td>
 </tr>

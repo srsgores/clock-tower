@@ -35,6 +35,13 @@ describe SessionsController do
       expect(session[:user_id]).to eq(nil)
     end
 
+    it "should unimpersonate if original_user_id exists in session" do
+      session[:original_user_id] = 1000
+      delete :destroy
+      expect(session[:user_id]).to eq(1000)
+      expect(session[:original_user_id]).to eq(nil)
+    end
+
     it "should redirect to root" do
       delete :destroy
       expect(response).to redirect_to(:root)

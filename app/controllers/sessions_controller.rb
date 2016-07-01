@@ -18,8 +18,15 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    reset_session if current_user
-    redirect_to :root, notice: "You have been logged out."
+    if session[:original_user_id]
+      session[:user_id] = session[:original_user_id]
+      session.delete(:original_user_id)
+      flash[:notice] = "Welcome back!"
+      redirect_to admin_users_path
+    else
+      reset_session if current_user
+      redirect_to :root, notice: "You have been logged out."
+    end
   end
 
 end
