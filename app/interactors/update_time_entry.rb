@@ -13,6 +13,7 @@ class UpdateTimeEntry
       project_changed if changes[:project_id]
       check_statement_validity if changes[:entry_date]
       set_holiday if holiday_needs_update?
+      set_source_rate if source_rate_needs_update?
       set_rate if rate_needs_update?
     end
 
@@ -41,7 +42,11 @@ class UpdateTimeEntry
   end
 
   def rate_needs_update?
-    changes[:task_id] || changes[:is_holiday]
+    changes[:project_id] || changes[:task_id] || changes[:is_holiday]
+  end
+
+  def source_rate_needs_update?
+    changes[:task_id] || changes[:project_id]
   end
 
   def set_required_variables
@@ -50,6 +55,7 @@ class UpdateTimeEntry
     @project = Project.find_by(id: context[:project_id])
     @task = Task.find_by(id: context[:task_id])
     @entry_date = Date.parse(context[:entry_date])
+    @rate = Rate.where(user: @user, project: @project, task: @task).first
     @duration_in_hours = context[:duration_in_hours]
   end
 
@@ -92,6 +98,10 @@ class UpdateTimeEntry
     @time_entry.rate = calculate_rate
   end
 
+  def set_source_rate
+    @time_entry.source_rate = @rate
+  end
+
   def set_holiday
     @time_entry.is_holiday = @entry_date.holiday?(@time_entry.holiday_code)
   end
@@ -101,7 +111,9 @@ class UpdateTimeEntry
   end
 
   def user_rate
-    if @user.secondary_rate && @task.apply_secondary_rate?
+    if @rate
+      @rate.rate
+    elsif @user.secondary_rate && @task.apply_secondary_rate?
       @user.secondary_rate
     else
       @user.rate

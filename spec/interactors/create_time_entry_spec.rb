@@ -13,6 +13,7 @@ describe CreateTimeEntry do
     @user = create :user
     @project = create :project
     @task = create :task
+    @rate = create :rate
     @duration = 1
     @entry_date = Date.today
     set_params
@@ -180,6 +181,23 @@ describe CreateTimeEntry do
     end
   end
 
+  describe "source_rate" do
+    it "should not set source_rate if there is no matching rate" do
+      set_params
+      @time_entry = CreateTimeEntry.call(@params).time_entry
+      expect(@time_entry.source_rate).to eq(nil)
+    end
+
+    it "should set source_rate if there is a matching rate" do
+      r = create :rate, project: @project, task: @task, user: @user, rate: 55
+      set_params
+      @time_entry = CreateTimeEntry.call(@params).time_entry
+      expect(@time_entry.source_rate).to eq(r)
+      expect(@time_entry.rate).to eq(r.rate)
+    end
+
+  end
+
   context "with no location" do
     it "should set the tax desc to nil" do
       expect(@time_entry.tax_desc).to eq(nil)
@@ -201,6 +219,15 @@ describe CreateTimeEntry do
         allow(@user).to receive(:hourly?).and_return (false)
         entry = CreateTimeEntry.call(@params).time_entry
         expect(entry.apply_rate).to eq(false)
+      end
+    end
+
+    context "rate from Rate" do
+      it "if Rate exists for Project/Task, use that rate" do
+        allow(@user).to receive(:hourly?).and_return (true)
+        create :rate, user_id: @user.id, project_id: @project.id, task_id: @task.id, rate: 100
+        entry = CreateTimeEntry.call(@params).time_entry
+        expect(entry.rate).to eq(100)
       end
     end
 

@@ -165,6 +165,19 @@ describe UpdateTimeEntry do
     end
   end
 
+  describe "with new source_rate" do
+
+    it "should set source_rate if there is a matching rate" do
+      @project = create :project, location: @location
+      r = create :rate, project: @project, task: @task, user: @user, rate: 55
+      set_params
+      @time_entry = UpdateTimeEntry.call(@params).time_entry
+      expect(@time_entry.source_rate).to eq(r)
+      expect(@time_entry.rate).to eq(r.rate)
+    end
+
+  end
+
   context "with new comments" do
     before :each do
       @comments = "I got changed!"

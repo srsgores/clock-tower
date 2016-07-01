@@ -36,6 +36,7 @@ class CreateTimeEntry
     @user = context[:user]
     @project = Project.find_by(id: context[:project_id])
     @task = Task.find_by(id: context[:task_id])
+    @rate = Rate.where(user: @user, project: @project, task: @task).first
     @entry_date = Date.parse(context[:entry_date])
     @duration_in_hours = context[:duration_in_hours]
   end
@@ -53,7 +54,9 @@ class CreateTimeEntry
   end
 
   def user_rate
-    if @user.secondary_rate && @task.apply_secondary_rate?
+    if @rate
+      @rate.rate
+    elsif @user.secondary_rate && @task.apply_secondary_rate?
       @user.secondary_rate
     else
       @user.rate
@@ -74,6 +77,7 @@ class CreateTimeEntry
       duration_in_hours: @duration_in_hours,
       comments: context[:comments],
       rate: rate,
+      source_rate: @rate,
       apply_rate: @user.hourly?,
       is_holiday: is_holiday?,
       holiday_rate_multiplier: @user.holiday_rate_multiplier,
