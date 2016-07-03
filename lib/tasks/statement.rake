@@ -1,7 +1,7 @@
 namespace :statement do
 
   desc "Find statement period ending today or date passed into DATE, ex DATE=2016-01-15, then create Statements if it exists"
-  task :daily_create, :environment do
+  task :daily_create => :environment do
     date = ENV['DATE']
     date = Date.parse(date) if date
     date ||= Date.today
@@ -24,7 +24,7 @@ namespace :statement do
   end
 
   desc "Lock all statements with a post_date of either today / the date passed into DATE, ex DATE=2016-01-15"
-  task :daily_lock, :environment do
+  task :daily_lock => :environment do
     date = ENV['DATE']
     date = Date.parse(date) if date
     date ||= Date.today
@@ -33,7 +33,7 @@ namespace :statement do
   end
 
   desc "Transition to legacy statements with a post_date of either today / the date passed into DATE, ex DATE=2016-01-15"
-  task :legacy_lock, :environment do
+  task :legacy_lock => :environment do
     date = ENV['DATE']
     date = Date.parse(date) if date
     date ||= Date.today
@@ -42,7 +42,7 @@ namespace :statement do
   end
 
   desc "Create Statements for all past time entries"
-  task :legacy_create, :environment do
+  task :legacy_create => :environment do
     end_date = ENV['END_DATE']
     end_date = Date.parse(end_date) if end_date
     CreateLegacyStatements.call(end_date: end_date)
