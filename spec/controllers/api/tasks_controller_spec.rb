@@ -10,7 +10,7 @@ describe Api::TasksController do
 
     it "should render a list of all Tasks" do
       task = build :task
-      expect(Task).to receive(:all).and_return([task])
+      expect(Task).to receive_message_chain(:order, :all).and_return([task])
       get :index
       expect(response.body).to eq([task].to_json)
     end

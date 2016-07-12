@@ -5,8 +5,7 @@ describe Admin::LocationsController do
   describe "GET index" do
     it "populates an array of locations" do
       location = build(:location)
-      expect(Location).to receive(:all).and_return([location])
-
+      expect(Location).to receive_message_chain(:order, :all).and_return([location])
       get :index
       expect(assigns(:locations)).to eq([location])
     end
@@ -34,10 +33,10 @@ describe Admin::LocationsController do
     end
 
     context "with invalid attributes" do
-      it "should not create a new time entry in the database" do 
+      it "should not create a new time entry in the database" do
         expect do
           post :create, location: attributes_for(:location, name: nil)
-        end.to change(Location, :count).by(0)        
+        end.to change(Location, :count).by(0)
       end
 
       it "should render the new template" do
