@@ -5,7 +5,8 @@ describe Admin::TasksController do
   describe "GET #index" do
     it "assigns the list of tasks to @tasks" do
       task = build(:task)
-      expect(Task).to receive(:all).and_return([task])
+      Task.stub_chain(:order, :all) { [task] }
+
       get :index
       expect(assigns(:tasks)).to eq [task]
     end

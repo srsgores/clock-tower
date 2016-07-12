@@ -2,7 +2,7 @@ class Admin::ProjectsController < Admin::BaseController
   before_filter :redirect_if_project_not_found, only: [:edit, :update, :delete]
 
   def index
-    @projects = Project.all
+    @projects = Project.order(:name => :asc).all
   end
 
   def new

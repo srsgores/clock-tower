@@ -3,7 +3,7 @@ class Admin::LocationsController < Admin::BaseController
   before_action :load_location, only: [:edit, :update, :destroy]
 
   def index
-    @locations = Location.all
+    @locations = Location.order(:name => :asc).all
   end
 
   def new

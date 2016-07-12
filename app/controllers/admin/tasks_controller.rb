@@ -2,7 +2,7 @@ class Admin::TasksController < Admin::BaseController
   before_filter :redirect_if_task_not_found, only: [:edit, :update, :destroy]
 
   def index
-    @tasks = Task.all
+    @tasks = Task.order(:name => :asc).all
   end
 
   def new

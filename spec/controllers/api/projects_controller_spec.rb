@@ -10,7 +10,8 @@ describe Api::ProjectsController do
 
     it "should render a list of all projects" do
       project = build :project
-      expect(Project).to receive(:all).and_return([project])
+      Project.stub_chain(:order, :all) { [project] }
+      # expect(Project).to receive(:all).and_return([project])
       get :index
       expect(response.body).to eq([project].to_json)
     end
