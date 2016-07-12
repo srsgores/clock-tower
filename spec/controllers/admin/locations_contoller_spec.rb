@@ -5,7 +5,7 @@ describe Admin::LocationsController do
   describe "GET index" do
     it "populates an array of locations" do
       location = build(:location)
-      Location.stub_chain(:order, :all) { [location] }
+      expect(Location).to receive_message_chain(:order, :all).and_return([location])
       get :index
       expect(assigns(:locations)).to eq([location])
     end
