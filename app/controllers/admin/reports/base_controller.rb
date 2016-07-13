@@ -8,6 +8,7 @@ class Admin::Reports::BaseController < Admin::BaseController
     @all_projects = Project.all
     @all_tasks = Task.all
     @all_users = User.order(lastname: :asc, firstname: :asc)
+    @all_locations = Location.all
   end
 
 end

@@ -13,11 +13,14 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-6 option-field">
+        <div class="col-md-4 option-field">
           <%= select_tag :projects, options_from_collection_for_select(@all_projects, :id, :name, params[:projects]), { class: "form-control chosen-select", "data-placeholder" => "Filter by projects", multiple: true } %>
         </div>
-        <div class="col-md-6 option-field">
+        <div class="col-md-4 option-field">
           <%= select_tag :tasks, options_from_collection_for_select(@all_tasks, :id, :name, params[:tasks]), { class: "form-control chosen-select", "data-placeholder" => "Filter by tasks", multiple: true } %>
+        </div>
+        <div class="col-md-4 option-field">
+          <%= select_tag :locations, options_from_collection_for_select(@all_locations, :id, :name, params[:locations]), { class: "form-control chosen-select", "data-placeholder" => "Filter by locations", multiple: true } %>
         </div>
       </div>
       <div class="row">
@@ -31,7 +34,7 @@
 
 <div class="container">
   <div class="alert alert-info">
-    <strong>Total duration:</strong> 
+    <strong>Total duration:</strong>
     <br>
     <%= number_with_precision(@total_duration, precision: 2) %> hours
   </div>

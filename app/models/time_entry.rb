@@ -34,7 +34,7 @@ class TimeEntry < ActiveRecord::Base
   end
 
   class << self
-    def query(from, to, user_ids = nil, project_ids = nil, task_ids = nil)
+    def query(from, to, user_ids = nil, project_ids = nil, task_ids = nil, locations_ids = nil)
       result = TimeEntry.where("time_entries.entry_date >= ? AND time_entries.entry_date <= ?", from, to)
 
       if user_ids.present?
@@ -47,6 +47,10 @@ class TimeEntry < ActiveRecord::Base
 
       if task_ids.present?
         result = result.where(task_id: task_ids)
+      end
+
+      if locations_ids.present?
+        result = result.joins(:project, :user).where("projects.location_id IN (?) OR users.location_id IN (?)", locations_ids, locations_ids)
       end
 
       result.order(entry_date: :desc)

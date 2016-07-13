@@ -6,7 +6,8 @@ class Admin::Reports::SummaryController < Admin::Reports::BaseController
       report_params[:to],
       report_params[:users],
       report_params[:projects],
-      report_params[:tasks]
+      report_params[:tasks],
+      report_params[:locations]
     )
 
     @from = report_params[:from].present? ? Date.parse(report_params[:from]) : Date.today.beginning_of_week
@@ -17,7 +18,7 @@ class Admin::Reports::SummaryController < Admin::Reports::BaseController
   private
 
   def report_params
-    params.permit(:from, :to, users: [], projects: [], tasks: [])
+    params.permit(:from, :to, users: [], projects: [], tasks: [], locations: [])
   end
 
   def total_duration(entries)
