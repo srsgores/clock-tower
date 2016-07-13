@@ -12,6 +12,7 @@ class Statement < ActiveRecord::Base
   validates :user_id, presence: true
 
   scope :by_users, -> (users){ where(user_id: users) }
+  scope :by_locations, -> (locations){ joins(:user).where(:"users.location_id" => locations)}
   scope :containing_date, -> (date){ where("statements.from <= ? AND statements.to >= ?", date, date) }
 
   def as_json(options)
@@ -39,7 +40,7 @@ class Statement < ActiveRecord::Base
   def to_s
     "#{from.to_s(:humanly)} - #{to.to_s(:humanly)}"
   end
-  
+
   def state
     state_machine.current_state
   end

@@ -16,6 +16,13 @@
       </div>
 
       <div class="row">
+        <div class="col-md-4 option-field">
+          <%= select_tag :locations, options_from_collection_for_select(@all_locations, :id, :name, params[:locations]), { class: "form-control chosen-select", "data-placeholder" => "Filter by locations", multiple: true } %>
+        </div>
+
+      </div>
+
+      <div class="row">
         <div class="col-md-2">
           <%= button_tag "Fetch", class: "btn btn-primary control-btn" %>
         </div>

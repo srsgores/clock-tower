@@ -5,11 +5,13 @@ class Admin::StatementsController < Admin::BaseController
 
   def index
     @all_users = User.all
+    @all_locations = Location.all
     @statements = Statement.page(params[:page]).per(100).includes(:user).order(to: :desc).order('users.firstname asc')
 
     @statements = @statements.containing_date(params[:containing]) if params[:containing].present?
     @statements = @statements.in_state(params[:state]) if params[:state].present?
     @statements = @statements.by_users(params[:users]) if params[:users].present?
+    @statements = @statements.by_locations(params[:locations]) if params[:locations].present?
   end
 
   def show
