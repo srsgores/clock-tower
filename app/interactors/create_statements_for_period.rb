@@ -33,9 +33,9 @@ class CreateStatementsForPeriod
       res = CreateStatement.call(to: @to, from: @from, user: user, post_date: @end_date, dont_email_user: context[:dont_email_user])
       if res.success?
         context.statements.push(res.statement)
-        logger.info "Created Statement for #{user.fullname}"
+        p "Created Statement for #{user.fullname}"
       else
-        logger.info "Statement could not be created for #{user.fullname}"
+        p "Statement could not be created for #{user.fullname}"
       end
     end
   end
