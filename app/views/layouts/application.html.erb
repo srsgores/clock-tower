@@ -7,8 +7,8 @@
   <%= csrf_meta_tags %>
   <%= yield :head %>
 </head>
-<body id="<%= 'admin' if on_admin? %>">
-  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<body id="<%= 'admin' if on_admin? %>" role="application">
+  <div class="navbar navbar-inverse navbar-fixed-top" role="banner">
     <div class="navbar-inner">
       <div class="container">
         <div class="navbar-header">
@@ -16,7 +16,7 @@
         </div>
 
         <% if is_logged_in? %>
-          <div class="collapse navbar-collapse navbar-right">
+          <nav class="collapse navbar-collapse navbar-right" role="navigation">
             <ul class="nav navbar-nav">
               <% if current_user.is_admin? %>
                 <li class="dropdown">
@@ -103,7 +103,7 @@
                 </ul>
               </li>
             </ul>
-          </div>
+          </nav>
         <% end %>
       </div>
     </div>
@@ -117,7 +117,7 @@
     <div id="push"></div>
   </div>
 
-  <div id="footer">
+  <footer id="footer" role="contentinfo">
     <div class="navbar-inverse">
       <div class="container">
         <p class="muted text-center" id="copyright">
@@ -126,7 +126,7 @@
         </p>
       </div>
     </div>
-  </div>
+  </footer>
 
   <link href="/css/app.css" rel="stylesheet">
 </body>
