@@ -8,7 +8,7 @@
   <%= yield :head %>
 </head>
 <body id="<%= 'admin' if on_admin? %>" role="application">
-  <div class="navbar navbar-inverse navbar-fixed-top" role="banner">
+  <header class="navbar navbar-inverse navbar-fixed-top" role="banner">
     <div class="navbar-inner">
       <div class="container">
         <div class="navbar-header">
@@ -107,15 +107,15 @@
         <% end %>
       </div>
     </div>
-  </div>
+  </header>
 
-  <div id="wrap">
+  <main id="wrap" role="main">
     <div id="container">
       <%= render 'layouts/flash' %>
       <%= yield %>
     </div>
     <div id="push"></div>
-  </div>
+  </main>
 
   <footer id="footer" role="contentinfo">
     <div class="navbar-inverse">
