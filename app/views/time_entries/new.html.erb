@@ -42,15 +42,15 @@
               <option value></option>
             </select>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-3">
             <p class="input-group">
-              <input type="text" class="form-control" placeholder="Select date" datepicker-popup="{{dateFormat}}" ng-model="date" ng-required="true" show-weeks="true" min-date="minDate" max-date="maxDate" is-open="opened" datepicker-options="dateOptions" close-text="Close" readonly>
+              <input type="date" class="form-control" placeholder="Select date" datepicker-popup="{{dateFormat}}" ng-model="date" ng-required="true" show-weeks="true" min-date="minDate" max-date="maxDate" is-open="opened" datepicker-options="dateOptions" close-text="Close">
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="toggleCalendar($event)"><i class="glyphicon glyphicon-calendar"></i></button>
               </span>
             </p>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-1">
             <input type="number" ng-required="true" step="any" class="form-control" min="0" max="999" placeholder="Duration (Hours)" ng-model="duration">
           </div>
           <div class="col-md-2">
